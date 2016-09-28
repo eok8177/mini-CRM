@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<title>{% block title %}Admin{% endblock %}</title>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
+	<link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+	{% block stylesheets %}{% endblock %}
+	<link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+	<link href="/assets/css/admin.css" rel="stylesheet">
+</head>
+<body>
+<div id="wrapper">
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="{{path('sadmin_dashboard')}}">SB Admin</a>
+		</div>
+
+		<ul class="nav navbar-right top-nav">
+			<li class="active">
+				<a href="#">
+					<i class="fa fa-cogs "></i> Настройки (A)
+				</a>
+			</li>
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{ app.user.username }} <b class="caret"></b></a>
+				<ul class="dropdown-menu">
+					<li>
+						<a href="{{path('sadmin_user_edit', {'id':app.user.id})}}"><i class="fa fa-user"></i> Profile</a>
+					</li>
+					<li>
+						<a href="#"><i class="fa fa-envelope"></i> Inbox</a>
+					</li>
+					<li>
+						<a href="#"><i class="fa fa-gear"></i> Settings</a>
+					</li>
+					<li class="divider"></li>
+					<li>
+						<a href="{{ path('logout') }}"><i class="fa fa-power-off"></i> Log Out</a>
+					</li>
+				</ul>
+			</li>
+		</ul>
+
+		<div class="collapse navbar-collapse navbar-ex1-collapse">
+			<ul class="nav side-nav">
+				<li class="{{ current.controller == 'dashboard' ? 'active' }}">
+					<a href="{{path('sadmin_dashboard')}}"><i class="fa fa-dashboard"></i> Dashboard</a>
+				</li>
+
+				<li class="{{ current.controller == 'club' ? 'active' }}">
+					<a href="#" class="dropdown-toggle" data-toggle="collapse" data-target="#dropdown-clubs" ><i class="fa fa-newspaper-o"></i>Clubs</a>
+					<ul id="dropdown-clubs" class="collapse {{ current.controller == 'club' ? 'in' }}"> <!-- in = opened block -->
+						<li class="{{ current.controller == 'club' and current.action == 'list' ? 'active' }}">
+							<a href="{{path('sadmin_club_list')}}"><i class="fa fa-list"></i> List Clubs</a>
+						</li>
+						<li class="{{ current.controller == 'club' and current.action == 'create' ? 'active' }}">
+							<a href="{{path('sadmin_club_edit')}}"><i class="fa fa-plus"></i> New Club</a>
+						</li>
+					</ul>
+				</li>
+
+				<li class="{{ current.controller == 'user' ? 'active' }}">
+					<a href="#" class="dropdown-toggle" data-toggle="collapse" data-target="#dropdown-users" ><i class="fa fa-users"></i> Users</a>
+					<ul id="dropdown-users" class="collapse {{ current.controller == 'user' ? 'in' }}"> <!-- in = opened block -->
+						<li class="{{ current.controller == 'user' and current.action == 'list' ? 'active' }}">
+							<a href="{{path('sadmin_users_list')}}"><i class="fa fa-list"></i> List users</a>
+						</li>
+						<li class="{{ current.controller == 'user' and current.action == 'create' ? 'active' }}">
+							<a href="{{path('sadmin_user_edit')}}"><i class="fa fa-plus"></i> New User</a>
+						</li>
+					</ul>
+				</li>
+
+			</ul>
+		</div>
+	</nav>
+
+	<div id="page-wrapper">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-12">
+					{% for flash_message in app.session.flashbag.get('notice') %}
+					<div class="alert alert-success" role="alert">{{ flash_message }}</div>
+					{% endfor %}
+
+					{% for flash_message in app.session.flashbag.get('warning') %}
+					<div class="alert alert-warning" role="alert">{{ flash_message }}</div>
+					{% endfor %}
+
+					{% block body %}{% endblock %}
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+	$('.delete').click(function(e){
+		if ( ! confirm('Are you sure?')) { return false; }
+	});
+</script>
+{% block javascripts %}{% endblock %}
+</body>
+
+</html>
