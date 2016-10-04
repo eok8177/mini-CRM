@@ -1,0 +1,23 @@
+{% extends 'sadmin/base.html.twig' %}
+
+{% block body %}
+<div class="container-fluid">
+
+	<h1 class="page-header">{% if current.action == 'edit' %}Edit{% else %}New{% endif %} Guest</h1>
+
+	{{ form_start(form, {'attr': {'class': 'form-horizontal', 'autocomplete' : 'off'} }) }}
+
+	{{ form_widget(form) }}
+
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<input type="submit" value="Save" class="btn btn-default" />
+
+		</div>
+	</div>
+
+	{{ form_end(form) }}
+
+
+</div>
+{% endblock %}

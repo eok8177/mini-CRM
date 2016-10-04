@@ -58,7 +58,7 @@
 				<li class="{{ current.controller == 'dashboard' ? 'active' }}">
 					<a href="{{path('sadmin_dashboard')}}"><i class="fa fa-dashboard"></i> Dashboard</a>
 				</li>
-
+{# Clubs #}
 				<li class="{{ current.controller == 'club' ? 'active' }}">
 					<a href="#" class="dropdown-toggle" data-toggle="collapse" data-target="#dropdown-clubs" ><i class="fa fa-newspaper-o"></i>Clubs</a>
 					<ul id="dropdown-clubs" class="collapse {{ current.controller == 'club' ? 'in' }}"> <!-- in = opened block -->
@@ -70,7 +70,7 @@
 						</li>
 					</ul>
 				</li>
-
+{# Users #}
 				<li class="{{ current.controller == 'user' ? 'active' }}">
 					<a href="#" class="dropdown-toggle" data-toggle="collapse" data-target="#dropdown-users" ><i class="fa fa-users"></i> Users</a>
 					<ul id="dropdown-users" class="collapse {{ current.controller == 'user' ? 'in' }}"> <!-- in = opened block -->
@@ -82,6 +82,19 @@
 						</li>
 					</ul>
 				</li>
+{# Guests #}
+				<li class="{{ current.controller == 'guest' ? 'active' }}">
+					<a href="#" class="dropdown-toggle" data-toggle="collapse" data-target="#dropdown-guests" ><i class="fa fa-users"></i> Guests</a>
+					<ul id="dropdown-guests" class="collapse {{ current.controller == 'guest' ? 'in' }}"> <!-- in = opened block -->
+						<li class="{{ current.controller == 'guest' and current.action == 'list' ? 'active' }}">
+							<a href="{{path('sadmin_guests_list')}}"><i class="fa fa-list"></i> List guests</a>
+						</li>
+						<li class="{{ current.controller == 'guest' and current.action == 'create' ? 'active' }}">
+							<a href="{{path('sadmin_guest_edit')}}"><i class="fa fa-plus"></i> New Guest</a>
+						</li>
+					</ul>
+				</li>
+
 
 			</ul>
 		</div>
