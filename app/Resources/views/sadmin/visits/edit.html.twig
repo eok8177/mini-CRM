@@ -1,0 +1,41 @@
+{% extends 'sadmin/base.html.twig' %}
+
+{% block body %}
+<div class="container-fluid">
+
+	<h1 class="page-header">{% if current.action == 'edit' %}Edit{% else %}New{% endif %} Visit</h1>
+
+	{{ form_start(form, {'attr': {'class': 'form-horizontal', 'autocomplete' : 'off'} }) }}
+
+	{{ form_widget(form) }}
+
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<input type="submit" value="Save" class="btn btn-default" />
+
+		</div>
+	</div>
+
+	{{ form_end(form) }}
+
+
+</div>
+
+
+{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="/bower_components/moment/min/moment.min.js"></script>
+<script type="text/javascript" src="/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+<script>
+	$(document).ready(function() {
+		$('.datepicker').datetimepicker({
+			format: 'YYYY-MM-DD HH:mm:ss z'
+		});
+	});
+</script>
+{% endblock %}

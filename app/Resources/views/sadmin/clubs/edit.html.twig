@@ -13,35 +13,50 @@
 	</li>
 </ul>
 
-{{ form_start(form, {'attr': {'class': 'form-horizontal'} }) }}
-<div class="tab-content">
-	<div class="tab-pane fade in active" id="page">
-	{{ form_row(form.title) }}
-	{{ form_row(form.description) }}
-	{{ form_row(form.address) }}
-	{{ form_row(form.contacts) }}
-	{{ form_row(form.enabled) }}
-	{% if image is not empty %}
-		<div class="col-sm-2"></div>
-		<div class="col-md-10">
-			<div class="thumbnail">
-				<img src="{{ image | imagine_filter("thumb_100x100") }}">
-				<a href="{{ path('sadmin_club_delete_image', {'id': club.id}) }}" class="btn delete"><span class="fa fa-trash" aria-hidden="true"></span></a>
+<div class="col-md-8">
+	{{ form_start(form, {'attr': {'class': 'form-horizontal'} }) }}
+	<div class="tab-content">
+		<div class="tab-pane fade in active" id="page">
+		{{ form_row(form.title) }}
+		{{ form_row(form.description) }}
+		{{ form_row(form.address) }}
+		{{ form_row(form.contacts) }}
+		{{ form_row(form.enabled) }}
+		{% if image is not empty %}
+			<div class="col-sm-2"></div>
+			<div class="col-md-10">
+				<div class="thumbnail">
+					<img src="{{ image | imagine_filter("thumb_100x100") }}">
+					<a href="{{ path('sadmin_club_delete_image', {'id': club.id}) }}" class="btn delete"><span class="fa fa-trash" aria-hidden="true"></span></a>
+				</div>
 			</div>
+		{% endif %}
+		{{ form_row(form.fimage) }}
+		{{ form_row(form.position) }}
 		</div>
-	{% endif %}
-	{{ form_row(form.fimage) }}
-	{{ form_row(form.position) }}
-	</div>
-	<div class="tab-pane fade" id="seo">
-	{{ form_row(form.slug) }}
+		<div class="tab-pane fade" id="seo">
+		{{ form_row(form.slug) }}
+
+		</div>
+
+		{{ form_row(form.save) }}
 
 	</div>
-
-	{{ form_row(form.save) }}
-
+	{{ form_end(form) }}
 </div>
-{{ form_end(form) }}
+<div class="col-md-4">
+	{% if club.visits is not empty %}
+		<h3>Visits</h3>
+		<table class="table">
+		{% for key, visit in club.visits %}
+			<tr>
+				<td>{{visit.comingTime|date("Y/m/d H:i") }}</td>
+				<td>{{visit.guest.firstName}}</td>
+			</tr>
+		{% endfor %}
+		</table>
+	{% endif %}
+</div>
 {% endblock %}
 
 {% block stylesheets %}

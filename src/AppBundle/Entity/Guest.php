@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Guest
@@ -53,6 +54,17 @@ class Guest
      * @ORM\Column(type="text", nullable=true)
      */
     private $wish;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Visit", mappedBy="guest")
+     */
+    private $visits;
+
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+        $this->visits = new ArrayCollection();
+    }
 
 
     /**
@@ -183,5 +195,39 @@ class Guest
     public function getWish()
     {
         return $this->wish;
+    }
+
+    /**
+     * Add visit
+     *
+     * @param \AppBundle\Entity\Visit $visit
+     *
+     * @return Guest
+     */
+    public function addVisit(\AppBundle\Entity\Visit $visit)
+    {
+        $this->visits[] = $visit;
+
+        return $this;
+    }
+
+    /**
+     * Remove visit
+     *
+     * @param \AppBundle\Entity\Visit $visit
+     */
+    public function removeVisit(\AppBundle\Entity\Visit $visit)
+    {
+        $this->visits->removeElement($visit);
+    }
+
+    /**
+     * Get visits
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVisits()
+    {
+        return $this->visits;
     }
 }

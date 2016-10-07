@@ -1,0 +1,52 @@
+{% extends 'sadmin/base.html.twig' %}
+
+{% block body %}
+	<div class="container-fluid">
+
+
+		<h1 class="page-header">Visits</h1>
+
+	<a href="{{path('sadmin_visit_edit')}}" class="btn btn-default"><i class="fa fa-plus"></i> New Visit</a>
+
+{% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th><i class="fa fa-sort" aria-hidden="true"></i> <a href="{{ currentPath }}?column=id{% if column == 'id' and order == 'asc' %}&order=desc{% else %}&order=asc{% endif %}">
+						Id</th></a>
+					<th>Action</th>
+{# 					<th><i class="fa fa-sort" aria-hidden="true"></i> <a href="{{ currentPath }}?column=firstName{% if column == 'firstName' and order == 'asc' %}&order=desc{% else %}&order=asc{% endif %}">
+						firstName</th>
+					<th><i class="fa fa-sort" aria-hidden="true"></i> <a href="{{ currentPath }}?column=lastName{% if column == 'lastName' and order == 'asc' %}&order=desc{% else %}&order=asc{% endif %}">
+						lastName</th>
+					<th>Phone</th>
+					<th><i class="fa fa-sort" aria-hidden="true"></i> <a href="{{ currentPath }}?column=email{% if column == 'email' and order == 'asc' %}&order=desc{% else %}&order=asc{% endif %}">
+						Email</th> #}
+				</tr>
+			</thead>
+			<tbody>
+
+				{% for key, visit in visits %}
+					<tr>
+						<td>{{ visit.id }}</td>
+						<td>
+							<div class="btn-group btn-group-sm">
+								<a href="{{ path('sadmin_visit_edit', {'id' : visit.id}) }}" class="btn"><span class="fa fa-pencil" aria-hidden="true"></span></a>
+								<a href="{{ path('sadmin_visit_delete', {'id' : visit.id}) }}" class="btn delete"><span class="fa fa-trash" aria-hidden="true"></span></a>
+							</div>
+						</td>
+
+						<td>{{ visit.comingTime|date("Y/m/d H:i") }}</td>
+						<td>{{ visit.guest.firstName }}</td>
+						<td>{{ visit.club.title }}</td>
+						<td>{{ visit.sumIn }}</td>
+						<td>{{ visit.sumOut }}</td>
+					</tr>
+				{% endfor %}
+
+
+			</tbody>
+		</table>
+
+	</div>
+{% endblock %}

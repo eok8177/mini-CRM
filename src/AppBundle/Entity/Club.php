@@ -91,11 +91,17 @@ class Club
      */
     private $users;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Visit", mappedBy="club")
+     */
+    private $visits;
+
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->visits = new ArrayCollection();
     }
-
 
     /**
      * Get id
@@ -355,5 +361,39 @@ class Club
     public function getUsers()
     {
         return $this->users;
+    }
+
+    /**
+     * Add visit
+     *
+     * @param \AppBundle\Entity\Visit $visit
+     *
+     * @return Club
+     */
+    public function addVisit(\AppBundle\Entity\Visit $visit)
+    {
+        $this->visits[] = $visit;
+
+        return $this;
+    }
+
+    /**
+     * Remove visit
+     *
+     * @param \AppBundle\Entity\Visit $visit
+     */
+    public function removeVisit(\AppBundle\Entity\Visit $visit)
+    {
+        $this->visits->removeElement($visit);
+    }
+
+    /**
+     * Get visits
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getVisits()
+    {
+        return $this->visits;
     }
 }
