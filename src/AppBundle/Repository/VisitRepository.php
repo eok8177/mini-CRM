@@ -10,4 +10,19 @@ namespace AppBundle\Repository;
  */
 class VisitRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function getStatistic($clubId, $date = false)
+	{
+		$date = $date ? $date : date('Y-m-d');
+
+		$sqlResult = "SELECT SUM(sum_in) AS sum_in , SUM(sum_out) AS sum_out , COUNT(id) AS count 
+			FROM visits 
+			WHERE club_id = $clubId AND coming_time >= '$date' 
+			";
+
+		$stmt = $this->getEntityManager()->getConnection()->prepare($sqlResult);
+		$stmt->execute();
+		$result= $stmt->fetch();
+
+		return $result;
+	}
 }

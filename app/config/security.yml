@@ -27,5 +27,5 @@ security:
     access_control:
         - { path: ^/efconnect, role: ROLE_SADMIN }
         - { path: ^/elfinder, role: ROLE_SADMIN }
-        - { path: ^/admin, roles: ROLE_SADMIN }
-        - { path: ^/user, roles: [ROLE_SADMIN, ROLE_USER] }
+        - { path: ^/sadmin, roles: ROLE_SADMIN }
+        - { path: ^/madmin, roles: [ROLE_SADMIN, ROLE_MANAGER] }

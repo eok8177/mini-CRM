@@ -10,7 +10,7 @@ namespace AppBundle\Repository;
  */
 class ClubRepository extends \Doctrine\ORM\EntityRepository
 {
-		public function getList()
+	public function getList()
 	{
 		$query = $this->createQueryBuilder('p')
 			//->where("p.id != 0")
@@ -28,5 +28,17 @@ class ClubRepository extends \Doctrine\ORM\EntityRepository
 		$em->flush();
 
 		return 0;
+	}
+
+	public function getArrayClubs()
+	{
+		$query = $this->createQueryBuilder('p');
+		$query->orderBy('p.position', 'ASC');
+
+		$result = array();
+		foreach ($query->getQuery()->getResult() as $key => $value) {
+			$result[$value->getId()] = $value->getTitle();
+		}
+		return $result;
 	}
 }
