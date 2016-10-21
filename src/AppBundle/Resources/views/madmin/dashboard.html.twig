@@ -1,24 +1,18 @@
-{% extends 'base.html.twig' %}
+{% extends 'AppBundle::layout.html.twig' %}
 
-{% block body %}
 
-<h1 class="page-header">
-	Blank Page
-	<small>Subheading</small>
-</h1>
-<ol class="breadcrumb">
-	<li>
-		<i class="fa fa-dashboard"></i>  <a href="#">Dashboard</a>
-	</li>
-	<li class="active">
-		<i class="fa fa-file"></i> Blank Page
-	</li>
-</ol>
-
+{% block sidebar %}
+    <h4>Менеджер зала</h4>
+    {% for test in club %}
+        {{ test.title }}
+    {% endfor %}
 {% endblock %}
 
-{% block stylesheets %}
-<style>
 
-</style>
+{% block content %}
+
+<h1 class="page-header">
+	<small>Гости</small>
+</h1>
+
 {% endblock %}

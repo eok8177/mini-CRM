@@ -30,6 +30,18 @@ class ClubRepository extends \Doctrine\ORM\EntityRepository
 		return 0;
 	}
 
+        public function getClubById($id)
+	{
+                $parameters = array('id' => $id);
+		$query = $this->createQueryBuilder('p')
+			->where("p.id = :id")
+			;
+                $query->setParameters($parameters);
+		$query->orderBy('p.position', 'ASC');
+
+		return $query->getQuery()->getResult();
+	}
+
 	public function getArrayClubs()
 	{
 		$query = $this->createQueryBuilder('p');

@@ -10,4 +10,14 @@ namespace AppBundle\Repository;
  */
 class StatisticRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getStatById($id)
+	{
+                $parameters = array('id' => $id);
+		$query = $this->createQueryBuilder('p')
+			->where("p.id_club = :id")
+			;
+                $query->setParameters($parameters);
+
+		return $query->getQuery()->getResult();
+	}
 }

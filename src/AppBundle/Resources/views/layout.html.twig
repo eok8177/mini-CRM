@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block stylesheets %}
+    {% stylesheets '@AppBundle/Resources/public/css/*' filter='cssrewrite' %}
+        <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block meta %}
+{% endblock %}
+
+{% block title %}
+{% endblock %}
+
+
+{% block body %}
+    <div class="col-md-2 sidebar">
+        <div class="nav-sidebar">
+            {% block sidebar %}
+            {% endblock %}           
+        </div>
+    
+    </div>
+    <div class="container-fluid col-md-10">
+        <h1>
+            <div class="btn-group pull-right">
+                {% block primary_buttons %}{% endblock %}
+            </div>
+            {% block headline %}{{ block('page_title') }}{% endblock %}
+        </h1>
+        {% for flashMessage in app.session.flashbag.get('success') %}
+            <div class="alert alert-success">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+
+        {% for flashMessage in app.session.flashbag.get('info') %}
+            <div class="alert alert-info">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+
+        {% for flashMessage in app.session.flashbag.get('danger') %}
+            <div class="alert alert-danger">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+
+        {% block content %}
+        {% endblock %}
+    </div>
+    <div class="clearfix"></div>
+{% endblock %}
+
+{% block footer %}
+    <div class="footer">
+        <div class="container-fluid text-muted">
+            <a href="http://www.webworks-crm.org" target="_blank">Thanks for using Webworks CRM</a>{% block footer_content %}{% endblock %}
+            <div class="pull-right">
+                <a href="https://www.bountysource.com/teams/webworks-crm/bounties?utm_source=Webworks%20CRM&utm_medium=shield&utm_campaign=bounties_posted"><img src="https://www.bountysource.com/badge/team?team_id=987&style=bounties_posted" /></a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}

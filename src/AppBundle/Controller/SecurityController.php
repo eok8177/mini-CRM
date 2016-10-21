@@ -40,7 +40,7 @@ class SecurityController extends Controller
 	public function redirectafterloginAction(Request $request)
 	{
 		if ($this->get('security.authorization_checker')->isGranted("ROLE_SADMIN")) return $this->redirectToRoute('sadmin_dashboard');
-		if ($this->get('security.authorization_checker')->isGranted("ROLE_ADMIN")) return $this->redirectToRoute('admin_dashboard');
+		if ($this->get('security.authorization_checker')->isGranted("ROLE_ADMIN")) return $this->redirectToRoute('adminclub_dashboard');
 		if ($this->get('security.authorization_checker')->isGranted("ROLE_MANAGER")) return $this->redirectToRoute('manager_dashboard');
 	}
 

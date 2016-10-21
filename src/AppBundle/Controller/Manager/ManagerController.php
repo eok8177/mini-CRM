@@ -14,8 +14,16 @@ class ManagerController extends Controller
 	 */
 	public function indexAction()
 	{
-		return $this->render('AppBundle:madmin:dashboard.html.twig', [
+            $user  = $this->get('security.token_storage')->getToken()->getUser();
+            $id = $user->getClub();
+
+            $club = $this->getDoctrine()
+			->getRepository('AppBundle:Club')
+			->getClubById($id);
+            
+            return $this->render('AppBundle:madmin:dashboard.html.twig', [
 			'current' => ['controller' => 'dashboard', 'action' => 'index'],
+                        'club' => $club,
 			]);
 	}
 }

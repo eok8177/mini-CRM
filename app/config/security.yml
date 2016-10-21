@@ -29,3 +29,4 @@ security:
         - { path: ^/elfinder, role: ROLE_SADMIN }
         - { path: ^/sadmin, roles: ROLE_SADMIN }
         - { path: ^/madmin, roles: [ROLE_SADMIN, ROLE_MANAGER] }
+        - { path: ^/adminclub, roles: [ROLE_ADMIN] }

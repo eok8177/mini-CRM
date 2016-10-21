@@ -30,7 +30,8 @@
         "egeloen/ckeditor-bundle": "^4.0",
         "helios-ag/fm-elfinder-bundle": "~6",
         "liip/imagine-bundle": "^1.5",
-        "stof/doctrine-extensions-bundle": "^1.2"
+        "stof/doctrine-extensions-bundle": "^1.2",
+        "symfony/assetic-bundle": "^2.8"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3",
