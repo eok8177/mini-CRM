@@ -10,4 +10,17 @@ namespace AppBundle\Repository;
  */
 class GuestRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function getClientsOther($visits)
+	{
+		$ids = [];
+		foreach ($visits as $visit) {
+			$ids[] = $visit->getGuest()->getId();
+		}
+
+		$query = $this->createQueryBuilder('p')
+			->where("p.id NOT IN ('".implode(',', $ids)."')")
+			;
+
+		return $query->getQuery()->getResult();
+	}
 }

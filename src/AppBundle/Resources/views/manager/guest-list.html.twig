@@ -1,0 +1,116 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block sidebar %}
+  {# {{ include('AppBundle:manager:sidebar.html.twig') }} #}
+  {{ render(controller('AppBundle:Manager/Dashboard:sidebar')) }}
+{% endblock %}
+
+{% block content %}
+  <div class="container-fluid">
+
+
+    <h2>Клиенты</h2>
+
+  <a href="{{path('manager_guest_edit')}}" class="btn btn-default"><i class="fa fa-plus"></i> Новый клиент</a>
+
+<div class="row">
+{% if visits is not empty %}<h2>В Зале</h2>{% endif %}
+{% for key, visit in visits %}
+    <div class="col-md-4">
+        <div class="well profile">
+            <div class="col-sm-12">
+                <div class="col-xs-12 col-sm-8">
+                    <h2>
+                        <a href="{{ path('manager_guest_edit', {'id' : visit.guest.id}) }}">{{ visit.guest.firstName }} {{ visit.guest.lastName }}</a>
+                    </h2>
+                    <p>&nbsp;{{ visit.guest.phone }}
+                    <p>&nbsp;{{ visit.guest.email }}
+                </div>
+                <div class="col-xs-12 col-sm-4 text-center">
+                    <figure>
+                        <img src="/images/default-user-icon-profile.png" alt="" class="img-circle img-responsive">
+                    </figure>
+                </div>
+            </div>
+            <div class="col-xs-12 divider text-center">
+                <div class="col-xs-12 col-sm-4 emphasis">
+                    <h2>
+                        <strong>{{visit.sumIn}}</strong>
+                    </h2>
+                    <p><small>Summ In</small></p>
+                    <p>{{ visit.comingTime|date("Y/m/d H:i") }}
+                </div>
+                <div class="col-xs-12 col-sm-4 emphasis">
+                    <h2><strong>{{visit.sumOut}}</strong></h2>
+                    <p><small>Sum Out</small></p>
+                    
+                </div>
+                <div class="col-xs-12 col-sm-4 emphasis">
+                    <h2><strong>{{visit.sumWin}}</strong></h2>
+                    <p><small>Summ win</small></p>
+                    <a class="btn btn-info btn-block" href="{{path('manager_visit_edit',{'id':visit.id})}}">Уходит</a>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+{% endfor %}
+</div>
+
+
+
+{% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
+{#     <table class="table table-hover">
+      <thead>
+        <tr>
+          <th><i class="fa fa-sort" aria-hidden="true"></i> <a href="{{ currentPath }}?column=id{% if column == 'id' and order == 'asc' %}&order=desc{% else %}&order=asc{% endif %}">
+            Id</th></a>
+          <th>Action</th>
+          <th><i class="fa fa-sort" aria-hidden="true"></i> <a href="{{ currentPath }}?column=firstName{% if column == 'firstName' and order == 'asc' %}&order=desc{% else %}&order=asc{% endif %}">
+            firstName</th>
+          <th><i class="fa fa-sort" aria-hidden="true"></i> <a href="{{ currentPath }}?column=lastName{% if column == 'lastName' and order == 'asc' %}&order=desc{% else %}&order=asc{% endif %}">
+            lastName</th>
+          <th>Phone</th>
+          <th><i class="fa fa-sort" aria-hidden="true"></i> <a href="{{ currentPath }}?column=email{% if column == 'email' and order == 'asc' %}&order=desc{% else %}&order=asc{% endif %}">
+            Email</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table> #}
+<hr>
+<h2>Добавить клиента</h2>
+<div class="row">
+{% for key, guest in guests %}
+    <div class="col-md-4">
+        <div class="well profile">
+            <div class="col-sm-12">
+                <div class="col-xs-12 col-sm-8">
+                    <h2>
+                        <a href="{{ path('manager_guest_edit', {'id' : guest.id}) }}">{{ guest.firstName }} {{ guest.lastName }}</a>
+                    </h2>
+                    <p>&nbsp;{{ guest.phone }}
+                    <p>&nbsp;{{ guest.email }}
+                </div>
+                <div class="col-xs-12 col-sm-4 text-center">
+                    <figure>
+                        <img src="/images/default-user-icon-profile.png" alt="" class="img-circle img-responsive">
+                    </figure>
+                </div>
+            </div>
+            <div class="col-xs-12 divider text-center">
+                <div class="col-xs-12 col-sm-4 emphasis">
+                    <a href="{{path('manager_visit_edit')}}" class="btn btn-success btn-block" >Пришел</a>
+                </div>
+                <div class="col-xs-12 col-sm-4 emphasis"></div>
+                <div class="col-xs-12 col-sm-4 emphasis"></div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+{% endfor %}
+</div>
+
+  </div>
+{% endblock %}

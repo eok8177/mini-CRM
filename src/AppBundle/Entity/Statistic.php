@@ -26,7 +26,7 @@ class Statistic
      *
      * @ORM\Column(type="integer")
      */
-    private $id_club;
+    private $idClub;
 
     /**
      * @ORM\Column(type="date", nullable=true)
@@ -74,7 +74,7 @@ class Statistic
      */
     public function setIdClub($idClub)
     {
-        $this->id_club = $idClub;
+        $this->idClub = $idClub;
 
         return $this;
     }
@@ -86,7 +86,7 @@ class Statistic
      */
     public function getIdClub()
     {
-        return $this->id_club;
+        return $this->idClub;
     }
 
     /**

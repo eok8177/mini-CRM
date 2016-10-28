@@ -25,4 +25,15 @@ class VisitRepository extends \Doctrine\ORM\EntityRepository
 
 		return $result;
 	}
+
+	public function getClientsInClub($club_id)
+	{
+		$query = $this->createQueryBuilder('p')
+			->where("p.club = :club_id")
+			->andWhere("p.leaveTime IS NULL")
+			->setParameter("club_id", $club_id)
+			;
+
+		return $query->getQuery()->getResult();
+	}
 }

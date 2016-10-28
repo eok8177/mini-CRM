@@ -1,0 +1,30 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+
+{% block sidebar %}
+{# {{ include('AppBundle:manager:sidebar.html.twig') }} #}
+{{ render(controller('AppBundle:Manager/Dashboard:sidebar')) }}
+{% endblock %}
+
+
+{% block content %}
+
+<h2>Statistics</h2>
+<table class="table">
+  <tr>
+    <th>Date</th>
+    <th>Sum in</th>
+    <th>Sum out</th>
+    <th>Saldo</th>
+  </tr>
+{% for key, item in statistics %}
+  <tr>
+    <td>{{item.dateStart|date("Y/m/d")}}</td>
+    <td>{{item.sumIn}}</td>
+    <td>{{item.sumOut}}</td>
+    <td>{{item.saldo}}</td>
+  </tr>
+{% endfor %}
+</table>
+
+{% endblock %}

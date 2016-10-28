@@ -62,7 +62,6 @@ class Guest
 
     public function __construct()
     {
-        $this->users = new ArrayCollection();
         $this->visits = new ArrayCollection();
     }
 

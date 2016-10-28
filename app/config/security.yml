@@ -25,8 +25,8 @@ security:
 
     # http://symfony.com/doc/current/book/security.html#securing-url-patterns-access-control
     access_control:
-        - { path: ^/efconnect, role: ROLE_SADMIN }
-        - { path: ^/elfinder, role: ROLE_SADMIN }
+        - { path: ^/efconnect, role: [ROLE_SADMIN, ROLE_MANAGER] }
+        - { path: ^/elfinder, role: [ROLE_SADMIN, ROLE_MANAGER] }
         - { path: ^/sadmin, roles: ROLE_SADMIN }
         - { path: ^/madmin, roles: [ROLE_SADMIN, ROLE_MANAGER] }
-        - { path: ^/adminclub, roles: [ROLE_ADMIN] }
+        - { path: ^/adminclub, roles: [ROLE_SADMIN, ROLE_ADMIN] }

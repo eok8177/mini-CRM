@@ -38,26 +38,26 @@ class Visit
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $coming_time;
+    private $comingTime;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $leave_time;
+    private $leaveTime;
 
     /**
      * @var float
      *
      * @ORM\Column(type="float", nullable=true)
      */
-    private $sum_in;
+    private $sumIn;
 
     /**
      * @var float
      *
      * @ORM\Column(type="float", nullable=true)
      */
-    private $sum_out;
+    private $sumOut;
 
     /**
      * @var float
@@ -95,7 +95,7 @@ class Visit
      */
     public function setComingTime($comingTime)
     {
-        $this->coming_time = $comingTime;
+        $this->comingTime = $comingTime;
 
         return $this;
     }
@@ -107,7 +107,7 @@ class Visit
      */
     public function getComingTime()
     {
-        return $this->coming_time;
+        return $this->comingTime;
     }
 
     /**
@@ -119,7 +119,7 @@ class Visit
      */
     public function setLeaveTime($leaveTime)
     {
-        $this->leave_time = $leaveTime;
+        $this->leaveTime = $leaveTime;
 
         return $this;
     }
@@ -131,7 +131,7 @@ class Visit
      */
     public function getLeaveTime()
     {
-        return $this->leave_time;
+        return $this->leaveTime;
     }
 
     /**
@@ -143,7 +143,7 @@ class Visit
      */
     public function setSumIn($sumIn)
     {
-        $this->sum_in = $sumIn;
+        $this->sumIn = $sumIn;
 
         return $this;
     }
@@ -155,7 +155,7 @@ class Visit
      */
     public function getSumIn()
     {
-        return $this->sum_in;
+        return $this->sumIn;
     }
 
     /**
@@ -167,7 +167,7 @@ class Visit
      */
     public function setSumOut($sumOut)
     {
-        $this->sum_out = $sumOut;
+        $this->sumOut = $sumOut;
 
         return $this;
     }
@@ -179,7 +179,7 @@ class Visit
      */
     public function getSumOut()
     {
-        return $this->sum_out;
+        return $this->sumOut;
     }
 
     /**

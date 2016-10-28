@@ -1,0 +1,48 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block sidebar %}
+  {# {{ include('AppBundle:manager:sidebar.html.twig') }} #}
+  {{ render(controller('AppBundle:Manager/Dashboard:sidebar')) }}
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+
+  <h1 class="page-header">{% if current.action == 'edit' %}Edit{% else %}New{% endif %} Guest</h1>
+
+<div class="col-md-8">
+  {{ form_start(form, {'attr': {'class': 'form-horizontal', 'autocomplete' : 'off'} }) }}
+
+  {{ form_widget(form) }}
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <input type="submit" value="Save" class="btn btn-default" />
+
+    </div>
+  </div>
+
+  {{ form_end(form) }}
+</div>
+<div class="col-md-4">
+  {% if guest.visits is not empty %}
+    <h3>Visits</h3>
+    <table class="table">
+    <thead>
+      <th>Coming</th>
+      <th>Out</th>
+      <th>Club</th>
+    </thead>
+    {% for key, visit in guest.visits %}
+      <tr>
+        <td>{{visit.comingTime|date("Y/m/d H:i") }}</td>
+        <td>{{visit.leaveTime is empty ? "" : visit.leaveTime|date("Y/m/d H:i") }}</td>
+        <td>{{visit.club.title}}</td>
+      </tr>
+    {% endfor %}
+    </table>
+  {% endif %}
+</div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block sidebar %}
+  {# {{ include('AppBundle:manager:sidebar.html.twig') }} #}
+  {{ render(controller('AppBundle:Manager/Dashboard:sidebar')) }}
+{% endblock %}
+
+{% block content %}
+	<div class="container-fluid">
+
+
+		<h1 class="page-header">Visits</h1>
+
+	<a href="{{path('manager_visit_edit')}}" class="btn btn-default"><i class="fa fa-plus"></i> New Visit</a>
+
+{% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th><i class="fa fa-sort" aria-hidden="true"></i> <a href="{{ currentPath }}?column=id{% if column == 'id' and order == 'asc' %}&order=desc{% else %}&order=asc{% endif %}">
+						Id</th></a>
+					<th>Action</th>
+					<th>Coming</th>
+					<th>Leave</th>
+					<th>Name</th>
+					<th>summ In</th>
+					<th>summ Out</th>
+					<th>summ Win</th>
+					<th>game</th>
+				</tr>
+			</thead>
+			<tbody>
+
+				{% for key, visit in visits %}
+					<tr>
+						<td>{{ visit.id }}</td>
+						<td>
+							<div class="btn-group btn-group-sm">
+								<a href="{{ path('manager_visit_edit', {'id' : visit.id}) }}" class="btn"><span class="fa fa-pencil" aria-hidden="true"></span></a>
+								<a href="{{ path('manager_visit_delete', {'id' : visit.id}) }}" class="btn delete"><span class="fa fa-trash" aria-hidden="true"></span></a>
+							</div>
+						</td>
+
+						<td>{{ visit.comingTime|date("Y/m/d H:i") }}</td>
+						<td>{{ visit.leaveTime is empty ? "" : visit.leaveTime|date("Y/m/d H:i") }}</td>
+						<td>{{ visit.guest.firstName }}</td>
+						<td>{{ visit.sumIn }}</td>
+						<td>{{ visit.sumOut }}</td>
+						<td>{{ visit.sumWin }}</td>
+						<td>{{ visit.game }}</td>
+					</tr>
+				{% endfor %}
+
+
+			</tbody>
+		</table>
+
+	</div>
+{% endblock %}
