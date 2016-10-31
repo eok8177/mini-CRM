@@ -21,9 +21,9 @@
                 <td>{{ guest.phone }}</td>
                 <td>{{ guest.email }}</td>
                 <td>
-                    <a href="{{path('admin_guest_edit',{'id':guest.id})}}" class="btn btn-info btn-block" >Просмотр</a>
-                    <a href="{{path('admin_visit_edit')}}" class="btn btn-success btn-block" >Пришел</a>
-                    <a href="{{path('admin_visit_edit',{'id':guest.id})}}" class="btn btn-success btn-block" >Ушел</a>
+                    <a href="{{path('admin_guest_edit',{'id':guest.id})}}" class="btn btn-info" >Просмотр</a>
+                    <a href="{{path('admin_visit_edit')}}" class="btn btn-success" >Пришел</a>
+                    <a href="{{path('admin_visit_edit',{'id':guest.id})}}" class="btn btn-primary" >Ушел</a>
                 </td>
             </tr>
         {% endfor %}
