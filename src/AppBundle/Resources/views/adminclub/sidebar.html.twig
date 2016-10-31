@@ -1,0 +1,48 @@
+   <p>
+        <h4>Администратор зала</h4>
+    </p>
+    <ul class="nav">
+        <li class=" current first">
+            <a href="{{ path('adminclub_dashboard') }}">Список гостей</a>
+        </li>
+        <li class="last">
+            <a href="{{ path('admin_guests_list') }}">Активные гости</a>        
+        </li>
+        <li class="last">
+            <a href="{{ path('admin_guest_edit') }}">Добавить гостя</a>        
+        </li>
+    </ul>
+        <br />
+    <div class="info_club">
+        <h4>Информация о Клубе</h4>
+        {% for info in club %}
+            <ul>
+                <li>
+                    <label>Название клуба:</label> {{ info.title }}
+                </li><li>
+                    <label>Адрес:</label> {{ info.address }}
+                </li><li>
+                    <label>Контакты:</label> {{ info.contacts }}
+                </li><li>
+                    <label>Активность:</label> {{ info.enabled }}
+                </li><li>
+                    <label>Описание:</label> {{ info.description|raw }}
+                </li>
+            </ul>
+            <img src=" {{ info.fimage }}" style="max-width: 90%" />
+        {% endfor %}
+    </div>
+     <div class="info_club">
+        <h4>Статистика Клуба</h4>
+        {% for stat in statistics %}
+            <ul>
+                <li>
+                    <label>Сумма вход:</label> {{ stat.sumIn }}
+                </li><li>
+                    <label>Сумма выход:</label> {{ stat.sumOut}}
+                </li><li>
+                    <label>Разница:</label> {{ stat.saldo }}
+                </li>
+            </ul>
+        {% endfor %}
+    </div>

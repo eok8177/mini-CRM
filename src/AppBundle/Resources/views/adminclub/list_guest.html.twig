@@ -6,10 +6,8 @@
     <thead class="panel-heading">
         <tr>
             <th><i class="fa fa-sort" aria-hidden="true"></i>Id</th></a>
-            <th>Action</th>
-            <th><i class="fa fa-sort" aria-hidden="true"></i>firstName</th>
-            <th><i class="fa fa-sort" aria-hidden="true"></i>lastName</th>
-            <th>Phone</th>
+            <th><i class="fa fa-sort" aria-hidden="true"></i>Имя гостя</th>
+            <th>Телефон</th>
             <th><i class="fa fa-sort" aria-hidden="true"></i>Email</th>
         </tr>
     </thead>
@@ -18,16 +16,15 @@
         {% for key, guest in guests %}
             <tr>
                 <td>{{ guest.id }}</td>
-                <td>
-                        <div class="btn-group btn-group-sm">
-                                <a href="{{ path('sadmin_guest_edit', {'id' : guest.id}) }}" class="btn"><span class="fa fa-pencil" aria-hidden="true"></span></a>
-                                <a href="{{ path('sadmin_guest_delete', {'id' : guest.id}) }}" class="btn delete"><span class="fa fa-trash" aria-hidden="true"></span></a>
-                        </div>
-                </td>
+                
                 <td>{{ guest.firstName }}</td>
-                <td>{{ guest.lastName }}</td>
                 <td>{{ guest.phone }}</td>
                 <td>{{ guest.email }}</td>
+                <td>
+                    <a href="{{path('admin_guest_edit',{'id':guest.id})}}" class="btn btn-info btn-block" >Просмотр</a>
+                    <a href="{{path('admin_visit_edit')}}" class="btn btn-success btn-block" >Пришел</a>
+                    <a href="{{path('admin_visit_edit',{'id':guest.id})}}" class="btn btn-success btn-block" >Ушел</a>
+                </td>
             </tr>
         {% endfor %}
 

@@ -14,7 +14,7 @@ class StatisticRepository extends \Doctrine\ORM\EntityRepository
 	{
                 $parameters = array('id' => $id);
 		$query = $this->createQueryBuilder('p')
-			->where("p.id_club = :id")
+			->where("p.idClub = :id")
 			;
                 $query->setParameters($parameters);
 

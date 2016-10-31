@@ -2,54 +2,7 @@
 
 
 {% block sidebar %}
-    <p>
-        <h4>Администратор зала</h4>
-    </p>
-    <ul class="nav">
-        <li class=" current first">
-            <a href="{{ path('adminclub_dashboard') }}">Список гостей</a>
-        </li>
-        <li class="last">
-            <a href="{{ path('adminclub_dashboard') }}">Активные гости</a>        
-        </li>
-        <li class="last">
-            <a href="{{ path('adminclub_dashboard') }}">Добавить гостя</a>        
-        </li>
-    </ul>
-        <br />
-    <div class="info_club">
-        <strong>Информация о Клубе</strong>
-        {% for info in club %}
-            <ul>
-                <li>
-                    <label>Название клуба:</label> {{ info.title }}
-                </li><li>
-                    <label>Адрес:</label> {{ info.address }}
-                </li><li>
-                    <label>Контакты:</label> {{ info.contacts }}
-                </li><li>
-                    <label>Активность:</label> {{ info.enabled }}
-                </li><li>
-                    <label>Описание:</label> {{ info.description|raw }}
-                </li>
-            </ul>
-            <img src=" {{ info.fimage }}" style="max-width: 90%" />
-        {% endfor %}
-    </div>
-     <div class="info_club">
-        <strong>Статистика Клуба</strong>
-        {% for stat in statistics %}
-            <ul>
-                <li>
-                    <label>Сумма вход:</label> {{ stat.sumIn }}
-                </li><li>
-                    <label>Сумма выход:</label> {{ stat.sumOut}}
-                </li><li>
-                    <label>Разница:</label> {{ stat.saldo }}
-                </li>
-            </ul>
-        {% endfor %}
-    </div>
+    {{ render(controller('AppBundle:AdminClub/AdminClub:sidebar')) }}
 {% endblock %}
 
 
