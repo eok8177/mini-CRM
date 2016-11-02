@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 use AppBundle\Entity\Visit;
-use AppBundle\Form\VisitType;
+use AppBundle\Form\VisitForManagerType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 use Symfony\Component\HttpFoundation\Response;
@@ -44,30 +44,32 @@ class VisitController extends Controller
 	}
 
 	/**
-	 * @Route("/visit/edit/{id}", name="manager_visit_edit", defaults={"id" = 0})
+	 * @Route("/visit/new/{guest}", name="manager_visit_new")
 	 */
-	public function editAction($id, Request $request)
+	public function newAction($guest, Request $request)
 	{
 		$session = new Session();
 		$club_id = $session->get('club_id');
 
-		if ($id == 0) {
-			$visit = new Visit();
-			$action = 'create';
-		} else {
-			$visit = $this->getDoctrine()
-				->getRepository('AppBundle:Visit')
-				->find($id);
+		$club = $this->getDoctrine()
+			->getRepository('AppBundle:Club')
+			->findOneById($club_id);
 
-			if (!$visit) {throw $this->createNotFoundException('No visits found');}
-			$action = 'edit';
-		}
+		$guestObj = $this->getDoctrine()
+			->getRepository('AppBundle:Guest')
+			->findOneById($guest);
 
-		$form = $this->createForm(VisitType::class, $visit);
+		$visit = new Visit();
+
+		$form = $this->createForm(VisitForManagerType::class, $visit);
 
 		$form->handleRequest($request);
 
 		if ($form->isSubmitted() && $form->isValid()) {
+
+			$visit->setComingTime(new \DateTime('now'));
+			$visit->setClub($club);
+			$visit->setGuest($guestObj);
 
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($visit);
@@ -77,20 +79,53 @@ class VisitController extends Controller
 				'notice',
 				'Visit saved!'
 			);
-			return $this->redirectToRoute('manager_visit_edit', [
-				'id' => $visit->getId(),
-				]);
+			return $this->redirectToRoute('manager_guests_list');
 		}
-
-		$form->remove('club');
-		$form->add('club', HiddenType::class, array(
-				'data' => $club_id
-				));
 
 		return $this->render('AppBundle:manager:visit-edit.html.twig', [
 			'form' => $form->createView(),
 			'visit' => $visit,
-			'current' => ['controller' => 'visit', 'action' => $action],
+			'current' => ['controller' => 'visit', 'action' => 'create'],
+		]);
+	}
+
+	/**
+	 * @Route("/visit/edit/{id}/{leave}", name="manager_visit_edit", defaults={"id" = 0, "leave" = 0})
+	 */
+	public function editAction($id, $leave, Request $request)
+	{
+		$session = new Session();
+		$club_id = $session->get('club_id');
+
+		$visit = $this->getDoctrine()
+			->getRepository('AppBundle:Visit')
+			->find($id);
+
+		if (!$visit) {throw $this->createNotFoundException('No visits found');}
+
+		$form = $this->createForm(VisitForManagerType::class, $visit);
+
+		$form->handleRequest($request);
+
+		if ($form->isSubmitted() && $form->isValid()) {
+
+			if ($leave == 1) $visit->setLeaveTime(new \DateTime('now'));
+
+			$em = $this->getDoctrine()->getManager();
+			$em->persist($visit);
+			$em->flush();
+
+			$this->addFlash(
+				'notice',
+				'Visit saved!'
+			);
+			return $this->redirectToRoute('manager_guests_list');
+		}
+
+		return $this->render('AppBundle:manager:visit-edit.html.twig', [
+			'form' => $form->createView(),
+			'visit' => $visit,
+			'current' => ['controller' => 'visit', 'action' => 'edit'],
 		]);
 	}
 

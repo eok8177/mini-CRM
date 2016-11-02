@@ -2,7 +2,7 @@
 
 {% block sidebar %}
   {# {{ include('AppBundle:manager:sidebar.html.twig') }} #}
-  {{ render(controller('AppBundle:Manager/Dashboard:sidebar')) }}
+  {{ render(controller('AppBundle:Manager/Dashboard:sidebar', {'current':current})) }}
 {% endblock %}
 
 {% block content %}
@@ -27,20 +27,4 @@
 </div>
 
 
-{% endblock %}
-
-{% block stylesheets %}
-<link rel="stylesheet" href="/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
-{% endblock %}
-
-{% block javascripts %}
-<script type="text/javascript" src="/bower_components/moment/min/moment.min.js"></script>
-<script type="text/javascript" src="/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-<script>
-	$(document).ready(function() {
-		$('.datepicker').datetimepicker({
-			format: 'YYYY-MM-DD HH:mm:ss z'
-		});
-	});
-</script>
 {% endblock %}

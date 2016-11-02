@@ -47,7 +47,7 @@ class DashboardController extends Controller
 	/**
 	 * @Route("/sidebar", name="manager_sidebar")
 	 */
-	public function sidebarAction()
+	public function sidebarAction($current = false)
 	{
 		$session = new Session();
 		$id = $session->get('club_id');
@@ -60,11 +60,16 @@ class DashboardController extends Controller
 			->getRepository('AppBundle:Club')
 			->findOneById($id);
 
+		$statistics = $this->getDoctrine()
+					->getRepository('AppBundle:Statistic')
+					->getStatById($id);
+
 		return $this->render('AppBundle:manager:sidebar.html.twig', [
-			'current' => ['controller' => 'dashboard', 'action' => 'index'],
+			'current' => $current,
 			'user' => $this->getUser(),
 			'clubs' => $clubs,
 			'club' => $club,
+			'statistics' => $statistics,
 		]);
 	}
 }

@@ -19,21 +19,56 @@
     <h3>{{ club.title }}</h3>
 
 <ul class="nav side-nav">
-{# Visits #}
-  <li class="{{ current.controller == 'visit' ? 'active' }}">
-    <a href="{{path('manager_visits_list')}}"><i class="fa fa-users"></i> Посещения</a>
-  </li>
 {# Guests #}
-  <li class="{{ current.controller == 'guest' ? 'active' }}">
-    <a href="{{path('manager_guests_list')}}"><i class="fa fa-users"></i> Клиенты</a>
+  <li class="{{ current.controller == 'guest' ? 'current' }}">
+    <a href="{{path('manager_guests_list')}}"><i class="fa fa-users"></i> Активные гости</a>
+  </li>
+{# Visits #}
+  <li class="{{ current.controller == 'visit' ? 'current' }}">
+    <a href="{{path('manager_visits_list')}}"><i class="fa fa-bar-chart"></i> Посещения</a>
   </li>
 
 {# Clubs #}
-  <li class="{{ current.controller == 'club' ? 'active' }}">
+  <li class="{{ current.controller == 'club' ? 'current' }}">
     <a href="{{path('manager_club_edit')}}" ><i class="fa fa-newspaper-o"></i> Edit Club</a>
   </li>
 {# Users #}
-  <li class="{{ current.controller == 'user' ? 'active' }}">
-    <a href="#" ><i class="fa fa-users"></i> Users</a>
+  <li class="{{ current.controller == 'user' ? 'current' }}">
+    <a href="#" ><i class="fa fa-users"></i> Администраторы</a>
   </li>
 </ul>
+
+<br />
+<div class="info_club">
+    <h4>Информация о Клубе</h4>
+
+        <ul>
+            <li>
+                <label>Название клуба:</label> {{ club.title }}
+            </li><li>
+                <label>Адрес:</label> {{ club.address }}
+            </li><li>
+                <label>Контакты:</label> {{ club.contacts }}
+            </li><li>
+                <label>Активность:</label> {{ club.enabled }}
+            </li><li>
+                <label>Описание:</label> {{ club.description|raw }}
+            </li>
+        </ul>
+        <img src=" {{ club.fimage }}" style="max-width: 90%" />
+
+</div>
+ <div class="info_club">
+    <h4>Статистика Клуба</h4>
+    {% for stat in statistics %}
+        <ul>
+            <li>
+                <label>Сумма вход:</label> {{ stat.sumIn }}
+            </li><li>
+                <label>Сумма выход:</label> {{ stat.sumOut}}
+            </li><li>
+                <label>Разница:</label> {{ stat.saldo }}
+            </li>
+        </ul>
+    {% endfor %}
+</div>

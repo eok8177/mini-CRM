@@ -2,7 +2,7 @@
 
 {% block sidebar %}
   {# {{ include('AppBundle:manager:sidebar.html.twig') }} #}
-  {{ render(controller('AppBundle:Manager/Dashboard:sidebar')) }}
+  {{ render(controller('AppBundle:Manager/Dashboard:sidebar', {'current':current})) }}
 {% endblock %}
 
 {% block content %}

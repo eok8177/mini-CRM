@@ -1,8 +1,8 @@
 {% extends 'AppBundle::layout.html.twig' %}
 
 {% block sidebar %}
-  {# {{ include('AppBundle:manager:sidebar.html.twig') }} #}
-  {{ render(controller('AppBundle:Manager/Dashboard:sidebar')) }}
+{# {{ include('AppBundle:manager:sidebar.html.twig') }} #}
+{{ render(controller('AppBundle:Manager/Dashboard:sidebar', {'current':current})) }}
 {% endblock %}
 
 {% block content %}
@@ -64,8 +64,8 @@
 </div>
 {% endblock %}
 
-{% block stylesheets %}
-	<style>
-		.thumbnail {max-width: 104px;}
-	</style>
+{% block styles %}
+<style>
+	.thumbnail {max-width: 104px;}
+</style>
 {% endblock %}

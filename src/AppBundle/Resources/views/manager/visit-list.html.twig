@@ -2,7 +2,7 @@
 
 {% block sidebar %}
   {# {{ include('AppBundle:manager:sidebar.html.twig') }} #}
-  {{ render(controller('AppBundle:Manager/Dashboard:sidebar')) }}
+  {{ render(controller('AppBundle:Manager/Dashboard:sidebar', {'current':current})) }}
 {% endblock %}
 
 {% block content %}
@@ -11,7 +11,6 @@
 
 		<h1 class="page-header">Visits</h1>
 
-	<a href="{{path('manager_visit_edit')}}" class="btn btn-default"><i class="fa fa-plus"></i> New Visit</a>
 
 {% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
 		<table class="table table-hover">
