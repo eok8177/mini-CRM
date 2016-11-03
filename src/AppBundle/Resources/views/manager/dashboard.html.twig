@@ -12,19 +12,35 @@
 <h2>Statistics</h2>
 <table class="table">
   <tr>
-    <th>Date</th>
-    <th>Sum in</th>
-    <th>Sum out</th>
-    <th>Saldo</th>
+    <th>Id</th>
+    <th>Action</th>
+    <th>Coming</th>
+    <th>Leave</th>
+    <th>Name</th>
+    <th>summ In</th>
+    <th>summ Out</th>
+    <th>summ Win</th>
+    <th>game</th>
   </tr>
-{% for key, item in statistics %}
-  <tr>
-    <td>{{item.dateStart|date("Y/m/d")}}</td>
-    <td>{{item.sumIn}}</td>
-    <td>{{item.sumOut}}</td>
-    <td>{{item.saldo}}</td>
-  </tr>
-{% endfor %}
+  {% for visit in visits %}
+    <tr>
+      <td>{{ visit.id }}</td>
+      <td>
+        <div class="btn-group btn-group-sm">
+          <a href="{{ path('manager_visit_edit', {'id' : visit.id}) }}" class="btn"><span class="fa fa-pencil" aria-hidden="true"></span></a>
+          <a href="{{ path('manager_visit_delete', {'id' : visit.id}) }}" class="btn delete"><span class="fa fa-trash" aria-hidden="true"></span></a>
+        </div>
+      </td>
+
+      <td>{{ visit.comingTime|date("Y/m/d H:i") }}</td>
+      <td>{{ visit.leaveTime is empty ? "" : visit.leaveTime|date("Y/m/d H:i") }}</td>
+      <td>{{ visit.guest.firstName }}</td>
+      <td>{{ visit.sumIn }}</td>
+      <td>{{ visit.sumOut }}</td>
+      <td>{{ visit.sumWin }}</td>
+      <td>{{ visit.game }}</td>
+    </tr>
+  {% endfor %}
 </table>
 
 {% endblock %}

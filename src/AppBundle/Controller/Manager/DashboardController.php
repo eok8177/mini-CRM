@@ -36,11 +36,17 @@ class DashboardController extends Controller
 		$statistics = $this->getDoctrine()
 			->getRepository('AppBundle:Statistic')
 			->findById_club($id);
+
+		$visits = $this->getDoctrine()
+			->getRepository('AppBundle:Visit')
+			->findBy(
+				array('club' => $id));
 		
 		return $this->render('AppBundle:manager:dashboard.html.twig', [
 			'current' => ['controller' => 'dashboard', 'action' => 'index'],
 			'user' => $user,
 			'statistics' => $statistics,
+			'visits' => $visits,
 		]);
 	}
 
@@ -61,8 +67,8 @@ class DashboardController extends Controller
 			->findOneById($id);
 
 		$statistics = $this->getDoctrine()
-					->getRepository('AppBundle:Statistic')
-					->getStatById($id);
+			->getRepository('AppBundle:Visit')
+			->getStatistic($id);
 
 		return $this->render('AppBundle:manager:sidebar.html.twig', [
 			'current' => $current,

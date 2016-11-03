@@ -9,8 +9,10 @@
   <div class="container-fluid">
 
 
-    <h2>Клиенты</h2>
-
+    <h2>Гости в зале</h2>
+{% if visits is empty %}
+    <h2>На данный момент в зале нет гостей</h2>
+{% else %}
 <div class="row">
 {% if visits is not empty %}<h2>В Зале</h2>{% endif %}
 {% for key, visit in visits %}
@@ -63,7 +65,7 @@
 {% endfor %}
 </div>
 
-
+{% endif %}
 
 {% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
 

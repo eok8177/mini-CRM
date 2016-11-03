@@ -10,4 +10,14 @@ namespace AppBundle\Repository;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function getAdmins($club_id)
+	{
+		$query = $this->createQueryBuilder('p')
+			->where("p.club = :club_id")
+			->andWhere("p.role = 'ROLE_ADMIN'")
+			->setParameter("club_id", $club_id)
+			;
+
+		return $query->getQuery()->getResult();
+	}
 }

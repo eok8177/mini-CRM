@@ -19,14 +19,17 @@
     <h3>{{ club.title }}</h3>
 
 <ul class="nav side-nav">
+<li class="{{ current.controller == 'dashboard' ? 'current' }}">
+  <a href="{{path('manager_dashboard')}}"><i class="fa fa-bar-chart"></i> Статистика клуба</a>
+</li>
 {# Guests #}
   <li class="{{ current.controller == 'guest' ? 'current' }}">
     <a href="{{path('manager_guests_list')}}"><i class="fa fa-users"></i> Активные гости</a>
   </li>
 {# Visits #}
-  <li class="{{ current.controller == 'visit' ? 'current' }}">
+{#   <li class="{{ current.controller == 'visit' ? 'current' }}">
     <a href="{{path('manager_visits_list')}}"><i class="fa fa-bar-chart"></i> Посещения</a>
-  </li>
+  </li> #}
 
 {# Clubs #}
   <li class="{{ current.controller == 'club' ? 'current' }}">
@@ -34,7 +37,7 @@
   </li>
 {# Users #}
   <li class="{{ current.controller == 'user' ? 'current' }}">
-    <a href="#" ><i class="fa fa-users"></i> Администраторы</a>
+    <a href="{{path('manager_users_list')}}" ><i class="fa fa-users"></i> Администраторы</a>
   </li>
 </ul>
 
@@ -60,15 +63,15 @@
 </div>
  <div class="info_club">
     <h4>Статистика Клуба</h4>
-    {% for stat in statistics %}
         <ul>
             <li>
-                <label>Сумма вход:</label> {{ stat.sumIn }}
+                <label>Сумма вход:</label> {{ statistics.sum_in }}
             </li><li>
-                <label>Сумма выход:</label> {{ stat.sumOut}}
+                <label>Сумма выход:</label> {{ statistics.sum_out}}
             </li><li>
-                <label>Разница:</label> {{ stat.saldo }}
+                <label>Разница:</label> {{ statistics.sum_in - statistics.sum_out }}
+            </li><li>
+                <label>Гостей:</label> {{ statistics.count }}
             </li>
         </ul>
-    {% endfor %}
 </div>
