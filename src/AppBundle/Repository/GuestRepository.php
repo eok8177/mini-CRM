@@ -17,9 +17,9 @@ class GuestRepository extends \Doctrine\ORM\EntityRepository
 			$ids[] = $visit->getGuest()->getId();
 		}
 
-		$query = $this->createQueryBuilder('p')
-			->where("p.id NOT IN ('".implode(',', $ids)."')")
-			;
+		$query = $this->createQueryBuilder('p');
+
+		if (!empty($ids)) $query->where("p.id NOT IN (".implode(',', $ids).")");
 
 		return $query->getQuery()->getResult();
 	}
