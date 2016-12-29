@@ -61,6 +61,20 @@ class VisitController extends Controller
 
 		$visit = new Visit();
 
+		$visit->setComingTime(new \DateTime('now'));
+		$visit->setClub($club);
+		$visit->setGuest($guestObj);
+
+		$em = $this->getDoctrine()->getManager();
+		$em->persist($visit);
+		$em->flush();
+
+		$this->addFlash(
+			'notice',
+			'Visit saved!'
+		);
+		return $this->redirectToRoute('manager_guests_list');
+// ------------ OLD can delete
 		$form = $this->createForm(VisitForManagerType::class, $visit);
 
 		$form->handleRequest($request);
