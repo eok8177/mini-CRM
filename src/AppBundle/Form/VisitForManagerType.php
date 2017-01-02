@@ -18,8 +18,8 @@ class VisitForManagerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('sum_in')
-            ->add('sum_out')
+            // ->add('sum_in')
+            // ->add('sum_out')
             ->add('sum_win')
             ->add('game')
         ;

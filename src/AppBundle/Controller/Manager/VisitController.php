@@ -11,6 +11,8 @@ use AppBundle\Entity\Visit;
 use AppBundle\Form\VisitForManagerType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
+use AppBundle\Entity\VisitLogs;
+
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -74,33 +76,6 @@ class VisitController extends Controller
 			'Visit saved!'
 		);
 		return $this->redirectToRoute('manager_guests_list');
-// ------------ OLD can delete
-		$form = $this->createForm(VisitForManagerType::class, $visit);
-
-		$form->handleRequest($request);
-
-		if ($form->isSubmitted() && $form->isValid()) {
-
-			$visit->setComingTime(new \DateTime('now'));
-			$visit->setClub($club);
-			$visit->setGuest($guestObj);
-
-			$em = $this->getDoctrine()->getManager();
-			$em->persist($visit);
-			$em->flush();
-
-			$this->addFlash(
-				'notice',
-				'Visit saved!'
-			);
-			return $this->redirectToRoute('manager_guests_list');
-		}
-
-		return $this->render('AppBundle:manager:visit-edit.html.twig', [
-			'form' => $form->createView(),
-			'visit' => $visit,
-			'current' => ['controller' => 'visit', 'action' => 'create'],
-		]);
 	}
 
 	/**
@@ -123,7 +98,19 @@ class VisitController extends Controller
 
 		if ($form->isSubmitted() && $form->isValid()) {
 
-			if ($leave == 1) $visit->setLeaveTime(new \DateTime('now'));
+			if ($leave == 1) {
+				$visit->setLeaveTime(new \DateTime('now'));
+
+				$visitLog = new VisitLogs();
+				$visitLog->setEventTime(new \DateTime('now'));
+				$visitLog->setVisit($visit);
+				$visitLog->setSumWin($visit->getSumWin());
+				$visitLog->setGame($visit->getGame());
+
+				$em = $this->getDoctrine()->getManager();
+				$em->persist($visitLog);
+				$em->flush();
+			}
 
 			$em = $this->getDoctrine()->getManager();
 			$em->persist($visit);
@@ -162,6 +149,71 @@ class VisitController extends Controller
 		);
 
 		return $this->redirectToRoute('manager_visits_list');
+	}
+
+	/**
+	 * @Route("/visit/sumin/{id}", name="manager_visit_sumin")
+	 */
+	public function suminAction($id, Request $request)
+	{
+		$sumin = $request->request->get('sumin');
+		if ((float)$sumin <= 0) return $this->redirectToRoute('manager_guests_list');
+
+		$visit = $this->getDoctrine()
+			->getRepository('AppBundle:Visit')
+			->find($id);
+
+		if (!$visit) {throw $this->createNotFoundException('No visits found');}
+
+		$visit->setSumIn($visit->getSumIn() + $sumin);
+
+		$visitLog = new VisitLogs();
+		$visitLog->setEventTime(new \DateTime('now'));
+		$visitLog->setVisit($visit);
+		$visitLog->setSumIn($sumin);
+
+		$em = $this->getDoctrine()->getManager();
+		$em->persist($visitLog);
+		$em->flush();
+
+		$em = $this->getDoctrine()->getManager();
+		$em->persist($visit);
+		$em->flush();
+
+		return $this->redirectToRoute('manager_guests_list');
+	}
+
+
+	/**
+	 * @Route("/visit/sumout/{id}", name="manager_visit_sumout")
+	 */
+	public function sumoutAction($id, Request $request)
+	{
+		$sumout = $request->request->get('sumout');
+		if ((float)$sumout <= 0) return $this->redirectToRoute('manager_guests_list');
+
+		$visit = $this->getDoctrine()
+			->getRepository('AppBundle:Visit')
+			->find($id);
+
+		if (!$visit) {throw $this->createNotFoundException('No visits found');}
+
+		$visit->setSumOut($visit->getSumOut() + $sumout);
+
+		$visitLog = new VisitLogs();
+		$visitLog->setEventTime(new \DateTime('now'));
+		$visitLog->setVisit($visit);
+		$visitLog->setSumOut($sumout);
+
+		$em = $this->getDoctrine()->getManager();
+		$em->persist($visitLog);
+		$em->flush();
+
+		$em = $this->getDoctrine()->getManager();
+		$em->persist($visit);
+		$em->flush();
+
+		return $this->redirectToRoute('manager_guests_list');
 	}
 
 
