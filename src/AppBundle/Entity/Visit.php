@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Visit
@@ -71,7 +72,16 @@ class Visit
      */
     private $game;
 
+    /**
+     * @ORM\OneToMany(targetEntity="VisitLogs", mappedBy="visit")
+     */
+    private $logs;
 
+
+    public function __construct()
+    {
+        $this->logs = new ArrayCollection();
+    }
  
 
     /**
@@ -274,5 +284,39 @@ class Visit
     public function getGuest()
     {
         return $this->guest;
+    }
+
+    /**
+     * Add log
+     *
+     * @param \AppBundle\Entity\VisitLogs $log
+     *
+     * @return Visit
+     */
+    public function addLog(\AppBundle\Entity\VisitLogs $log)
+    {
+        $this->logs[] = $log;
+
+        return $this;
+    }
+
+    /**
+     * Remove log
+     *
+     * @param \AppBundle\Entity\VisitLogs $log
+     */
+    public function removeLog(\AppBundle\Entity\VisitLogs $log)
+    {
+        $this->logs->removeElement($log);
+    }
+
+    /**
+     * Get logs
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLogs()
+    {
+        return $this->logs;
     }
 }
