@@ -1,0 +1,43 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block sidebar %}
+{{ render(controller('AppBundle:Manager/Dashboard:sidebar', {'current':current})) }}
+{% endblock %}
+
+{% block content %}
+
+<h1 class="page-header">Send SMS</h1>
+
+
+<form action="" method="post" class="form-horizontal">
+
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="email_email">Email</label>
+		<div class="col-sm-10">
+			<input type="text" id="email_email" name="email" class="form-control" value="{{guest.email}}">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-sm-2 control-label" for="email_messaage">Сообщение</label>
+		<div class="col-sm-10">
+			<textarea id="email_messaage" name="message" class="form-control" rows="3"></textarea>
+		</div>
+	</div>
+
+	{# <input type="hidden" id="email__token" name="sms[_token]" value=""> #}
+
+
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<input type="submit" value="Отправить" class="btn btn-default">
+		</div>
+	</div>
+
+</form>
+
+
+{% endblock %}
+
+{% block styles %}
+{% endblock %}

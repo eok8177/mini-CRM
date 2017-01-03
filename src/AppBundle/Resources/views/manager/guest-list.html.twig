@@ -81,8 +81,8 @@
                       <button class="btn btn-info dropdown-toggle btn-block" type="button" id="visit_{{visit.id}}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Действия  <span class="caret"></span>
                       </button>
                       <ul class="dropdown-menu" aria-labelledby="visit_{{visit.id}}">
-                        <li class="bg-success"><a href="#">SMS</a></li>
-                        <li class="bg-warning"><a href="#">Email</li>
+                        <li class="text-center"><a href="{{ path('sms', {'id':visit.guest.id}) }}">SMS</a></li>
+                        <li class="text-center"><a href="{{ path('email', {'id':visit.guest.id}) }}">Email</li>
                       </ul>
                     </div>
                 </div>
