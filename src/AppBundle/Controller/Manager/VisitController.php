@@ -46,6 +46,23 @@ class VisitController extends Controller
 	}
 
 	/**
+	 * @Route("/visit/show/{id}", name="manager_visit_show")
+	 */
+	public function showAction($id)
+	{
+		$visit = $this->getDoctrine()
+			->getRepository('AppBundle:Visit')
+			->find($id);
+
+		if (!$visit) {throw $this->createNotFoundException('No visits found');}
+
+		return $this->render('AppBundle:manager:visit-show.html.twig', [
+			'visit' => $visit,
+			'current' => ['controller' => 'visit', 'action' => 'show'],
+		]);
+	}
+
+	/**
 	 * @Route("/visit/new/{guest}", name="manager_visit_new")
 	 */
 	public function newAction($guest, Request $request)

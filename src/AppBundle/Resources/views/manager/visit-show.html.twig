@@ -1,0 +1,39 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block sidebar %}
+  {# {{ include('AppBundle:manager:sidebar.html.twig') }} #}
+  {{ render(controller('AppBundle:Manager/Dashboard:sidebar', {'current':current})) }}
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+
+<h1 class="page-header">Visit</h1>
+
+<p>Пришел: {{ visit.comingTime|date("Y/m/d H:i") }}</p>
+
+<table class="table table-striped table-hover">
+    <tr>
+        <th>Время</th>
+        <th>Внес</th>
+        <th>Забрал</th>
+        <th>Выиграл</th>
+        <th>Игра</th>
+    </tr>
+{% for log in visit.logs %}
+    <tr>
+        <td>{{ log.eventTime|date("H:i") }}</td>
+        <td>{{ log.sumIn }}</td>
+        <td>{{ log.sumOut }}</td>
+        <td>{{ log.sumWin }}</td>
+        <td>{{ log.game }}</td>
+    </tr>
+{% endfor %}
+</table>
+
+<p>Ушел: {{ visit.leaveTime is empty ? 'в клубе' : visit.leaveTime|date("Y/m/d H:i") }}</p>
+
+</div>
+
+
+{% endblock %}

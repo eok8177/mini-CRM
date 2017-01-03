@@ -27,8 +27,9 @@
       <td>{{ visit.id }}</td>
       <td>
         <div class="btn-group btn-group-sm">
-          <a href="{{ path('manager_visit_edit', {'id' : visit.id}) }}" class="btn"><span class="fa fa-pencil" aria-hidden="true"></span></a>
-          <a href="{{ path('manager_visit_delete', {'id' : visit.id}) }}" class="btn delete"><span class="fa fa-trash" aria-hidden="true"></span></a>
+          <a href="{{ path('manager_visit_show', {'id' : visit.id}) }}" class="btn"><span class="fa fa-eye" aria-hidden="true"></span></a>
+          {# <a href="{{ path('manager_visit_edit', {'id' : visit.id}) }}" class="btn"><span class="fa fa-pencil" aria-hidden="true"></span></a> #}
+          {# <a href="{{ path('manager_visit_delete', {'id' : visit.id}) }}" class="btn delete"><span class="fa fa-trash" aria-hidden="true"></span></a> #}
         </div>
       </td>
 
