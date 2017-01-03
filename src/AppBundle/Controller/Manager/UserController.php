@@ -25,7 +25,11 @@ class UserController extends Controller
 	public function listAction(Request $request)
 	{
 		$session = new Session();
-		$club_id = $session->get('club_id');
+		if (!($club_id = $session->get('club_id'))) {
+			$user = $this->getUser();
+			$club_id = $user->getClub()->getId();
+			$session->set('club_id', $club_id);
+		}
 
 		$users = $this->getDoctrine()
 			->getRepository('AppBundle:User')
@@ -44,7 +48,11 @@ class UserController extends Controller
 	public function addAction(Request $request)
 	{
 		$session = new Session();
-		$club_id = $session->get('club_id');
+		if (!($club_id = $session->get('club_id'))) {
+			$user = $this->getUser();
+			$club_id = $user->getClub()->getId();
+			$session->set('club_id', $club_id);
+		}
 
 		$club = $this->getDoctrine()
 			->getRepository('AppBundle:Club')

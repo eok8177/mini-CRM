@@ -23,7 +23,11 @@ class GuestController extends Controller
 	public function listAction(Request $request)
 	{
 		$session = new Session();
-		$club_id = $session->get('club_id');
+		if (!($club_id = $session->get('club_id'))) {
+			$user = $this->getUser();
+			$club_id = $user->getClub()->getId();
+			$session->set('club_id', $club_id);
+		}
 
 		$order = $request->query->get('order') ? $request->query->get('order') : 'ASC';
 		$column = $request->query->get('column') ? $request->query->get('column') : 'id';
